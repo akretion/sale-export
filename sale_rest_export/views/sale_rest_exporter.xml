@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) Akretion 2020-->
+<!--License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html)-->
+<openerp>
+    <data>
+
+        <record id="sale_rest_exporter_view_form" model="ir.ui.view">
+            <field name="name">sale_rest_exporter_view_form</field>
+            <field name="model">sale.rest.exporter</field>
+            <field name="arch" type="xml">
+                <form string="sale_rest_exporter_form">
+                    <header>
+                        <button type="object" name="button_export_sale_orders" class="oe_highlight" string="Export Sale Orders in domain"/>
+                        <button type="object" name="button_reset_chunk_identifiers" class="oe_highlight" string="Reset chunk identifiers"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                            <button class="oe_inline oe_stat_button" type="object"
+                                    name="button_open_orders_has_chunk" icon="fa-tasks">
+                                <field string="Exported" name="count_sale_orders_has_chunk" widget="statinfo"/>
+                            </button>
+                            <button class="oe_inline oe_stat_button" type="object"
+                                    name="button_open_orders_exportable" icon="fa-tasks">
+                                <field string="Exportable" name="count_sale_orders_exportable" widget="statinfo"/>
+                            </button>
+                            <button class="oe_inline oe_stat_button" type="object"
+                                    name="button_open_orders_error" icon="fa-tasks">
+                                <field string="Errored" name="count_sale_orders_error" widget="statinfo"/>
+                            </button>
+                            <button class="oe_inline oe_stat_button" type="object"
+                                    name="button_open_orders_domain" icon="fa-tasks">
+                                <field string="In domain" name="count_sale_orders_in_domain" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="url_importer"/>
+                            <field name="api_key"/>
+                            <field name="domain"/>
+                        </group>
+                        <group>
+                            <field name="pricelist_mappings">
+                                <tree editable="bottom">
+                                    <field name="local_db_id"/>
+                                    <field name="ext_db_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_rest_exporter_view_tree" model="ir.ui.view">
+            <field name="name">sale_rest_exporter_view_tree</field>
+            <field name="model">sale.rest.exporter</field>
+            <field name="arch" type="xml">
+                <tree string="sale_rest_exporter_tree">
+                    <field name="name"/>
+                    <field name="url_importer"/>
+                    <field name="api_key"/>
+                    <field name="domain"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_rest_exporter_action" model="ir.actions.act_window">
+            <field name="name">Sale REST Exporter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.rest.exporter</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="sale_rest_exporter_config" action="sale_rest_exporter_action" name="Sale REST Exporter"
+                  parent="base.menu_sale_config_sales"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) Akretion 2020-->
+<!--License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html)-->
+
+<openerp>
+    <data noupdate="1">
+
+        <record id="sale_order_export_demo_1" model="sale.order">
+            <field name="name">Demo SO001</field>
+            <field name="partner_id" ref="base.res_partner_2"/>
+            <field name="partner_invoice_id" ref="base.res_partner_3"/>
+            <field name="partner_shipping_id" ref="base.res_partner_4"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+
+        <record id="sale_order_export_demo_1_line_1" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_1"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">100.00</field>
+        </record>
+
+        <record id="sale_order_export_demo_1_line_2" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_1"/>
+            <field name="name">Pen drive, 16GB</field>
+            <field name="product_id" ref="product.product_product_30"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">100.00</field>
+        </record>
+
+        <record id="sale_order_export_demo_1_line_3" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_1"/>
+            <field name="name">Headset USB</field>
+            <field name="product_id" ref="product.product_product_33"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.00</field>
+        </record>
+
+        <record id="demo_exporter" model="sale.rest.exporter">
+            <field name="name">Demo exporter</field>
+            <field name="url_importer">https://akretion.example.com</field>
+            <field name="api_key">ASecureKeyEbay</field>
+        </record>
+
+        <record id="sale_order_export_demo_2" model="sale.order">
+            <field name="name">Demo SO002</field>
+            <field name="partner_id" ref="base.res_partner_5"/>
+            <field name="partner_invoice_id" ref="base.res_partner_6"/>
+            <field name="partner_shipping_id" ref="base.res_partner_7"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+
+        <record id="sale_order_export_demo_2_line_1" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_2"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">100.00</field>
+        </record>
+
+        <record id="sale_order_export_demo_2_line_2" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_2"/>
+            <field name="name">Pen drive, 16GB</field>
+            <field name="product_id" ref="product.product_product_30"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">100.00</field>
+        </record>
+
+        <record id="sale_order_export_demo_2_line_3" model="sale.order.line">
+            <field name="order_id" ref="sale_order_export_demo_2"/>
+            <field name="name">Headset USB</field>
+            <field name="product_id" ref="product.product_product_33"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.00</field>
+        </record>
+
+        <record id="demo_exporter" model="sale.rest.exporter">
+            <field name="name">Demo exporter</field>
+            <field name="url_importer">https://akretion.example.com</field>
+            <field name="api_key">ASecureKeyEbay</field>
+        </record>
+
+        <record id="demo_exporter_line_1" model="sale.rest.exporter.mapping.line">
+            <field name="local_db_id">1</field>
+            <field name="ext_db_id">456</field>
+            <field name="exporter_id" ref="demo_exporter"/>
+        </record>
+
+    </data>
+</openerp>

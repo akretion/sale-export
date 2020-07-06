@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) Akretion 2020-->
+<!--License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html)-->
+<openerp>
+    <data>
+
+        <record id="view_order_tree" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="chunk_identifier"/>
+                    <field name="export_state_info"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page" position="after">
+                    <page string="Exports">
+                        <group>
+                            <field name="chunk_identifier"/>
+                            <field name="export_state_info"/>
+                            <field name="export_content"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

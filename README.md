@@ -1,2 +1,1 @@
-Loosely coupled Odoo-to-Odoo exports using API endpoints
-TODO
+To use with sale-import

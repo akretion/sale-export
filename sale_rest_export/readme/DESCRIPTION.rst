@@ -1,0 +1,1 @@
+Allows sending formatted data for Sale Orders. With Sale Import REST module, allows implementation of Enterprise Service Bus.

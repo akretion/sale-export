@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_technical_user_sale_rest_exporter,sale_rest_exporter,sale_rest_export.model_sale_rest_exporter,base.group_no_one,1,1,1,1
+access_technical_user_sale_rest_mapping_exporter,sale_rest_exporter_mapping,sale_rest_export.model_sale_rest_exporter_mapping_line,base.group_no_one,1,1,1,1
