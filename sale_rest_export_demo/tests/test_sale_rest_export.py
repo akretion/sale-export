@@ -9,6 +9,9 @@ import json
 class TestSaleRestExport(SaleExportCase):
     def setUp(self):
         super(TestSaleRestExport, self).setUp()
+        self.mock_request = MagicMock()
+        self.mock_request.status_code = 200
+        self.mock_request.content = u'{"chunk_ids" : [1,2,3,4,5]}'
 
     def test_vals_preparation(self):
         vals = self.sale_order_1._prepare_export_vals(self.exporter)[
@@ -27,18 +30,20 @@ class TestSaleRestExport(SaleExportCase):
         self.assertEqual(vals["pricelist_id"], 456)
 
     def test_export_basic(self):
-        mock_request = MagicMock()
-        mock_request.status_code = 200
-        mock_request.content = u'{"chunk_ids" : [0,1,2,3,4]}'
-        with patch("requests.post", return_value=mock_request):
+        with patch("requests.post", return_value=self.mock_request):
             self.exporter.button_export_sale_orders()
-        self.assertEqual(self.sale_order_1.chunk_identifier, 4)
+
+    def test_export_chunk_identifiers(self):
+        with patch("requests.post", return_value=self.mock_request):
+            self.exporter.button_export_sale_orders()
+        sale_orders_exportable = self.env["sale.order"].search([
+            ("export_state_info", "=", "Exportable")
+        ])
+        for so in sale_orders_exportable:
+            self.assertTrue(so.chunk_identifier)
 
     def test_reset_chunk_identifiers(self):
-        mock_request = MagicMock()
-        mock_request.status_code = 200
-        mock_request.content = u'{"chunk_ids" : [0,1,2,3,4]}'
-        with patch("requests.post", return_value=mock_request):
+        with patch("requests.post", return_value=self.mock_request):
             self.exporter.button_export_sale_orders()
         self.exporter.button_reset_chunk_identifiers()
         self.assertEqual(self.sale_order_1.chunk_identifier, False)
