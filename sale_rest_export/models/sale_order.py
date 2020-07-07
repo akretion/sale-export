@@ -88,7 +88,11 @@ class SaleOrder(models.Model):
             }
             required_fields = ["product_code", "qty", "price_unit"]
             if not all([vals[required] for required in required_fields]):
-                raise ValidationError(_("Invalid line data. Make sure product code, quantity, and price are set for all products"))
+                raise ValidationError(
+                    _(
+                        "Invalid line data. Make sure product code, quantity, and price are set for all products"
+                    )
+                )
             result["lines"].append(vals)
         return result
 
@@ -133,4 +137,7 @@ class SaleOrder(models.Model):
         )
         if not mapping:
             raise ValidationError("No matching pricelist found")
-        return {"currency_code": self.currency_id.name, "pricelist_id": mapping.ext_db_id}
+        return {
+            "currency_code": self.currency_id.name,
+            "pricelist_id": mapping.ext_db_id,
+        }

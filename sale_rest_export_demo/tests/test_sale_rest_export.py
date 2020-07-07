@@ -5,6 +5,7 @@ from openerp.tools import float_compare
 from mock import patch, MagicMock
 import json
 
+
 class TestSaleRestExport(SaleExportCase):
     def setUp(self):
         super(TestSaleRestExport, self).setUp()

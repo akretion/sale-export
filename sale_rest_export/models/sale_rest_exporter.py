@@ -57,15 +57,15 @@ class SaleRestExporter(models.Model):
 
     @property
     def domain_error(self):
-        return                 [
-                    "&",
-                    ("export_state_info", "!=", "Exportable"),
-                    ("export_state_info", "!=", False),
-                ]
+        return [
+            "&",
+            ("export_state_info", "!=", "Exportable"),
+            ("export_state_info", "!=", False),
+        ]
 
     @property
     def domain_self(self):
-        return                 safe_eval(self.domain)
+        return safe_eval(self.domain)
 
     @api.multi
     def _compute_counts(self):
@@ -89,8 +89,7 @@ class SaleRestExporter(models.Model):
             "view_type": "form",
             "view_mode": "tree,form",
             "res_model": "sale.order",
-            "domain": self.domain_has_chunk
-            ,
+            "domain": self.domain_has_chunk,
             "type": "ir.actions.act_window",
         }
 
@@ -135,8 +134,7 @@ class SaleRestExporter(models.Model):
         exports = sale_orders._prepare_export_vals(self)
         sale_orders_exportable = self.env["sale.order"].browse(sorted(exports.keys()))
         data = {"sale_orders": [vals for vals in exports.values()]}
-        headers = {"API_KEY": self.api_key,
-                   "Content-Type": "application/json"}
+        headers = {"API_KEY": self.api_key, "Content-Type": "application/json"}
         result = requests.post(
             self.url_importer, headers=headers, data=json.dumps(data)
         )
@@ -152,7 +150,9 @@ class SaleRestExporter(models.Model):
                     )
                 )
             for itr in range(len(sale_orders_exportable)):
-                sale_orders_exportable[itr].chunk_identifier = result_content["chunk_ids"][itr]
+                sale_orders_exportable[itr].chunk_identifier = result_content[
+                    "chunk_ids"
+                ][itr]
         else:
             raise ValidationError(str(result))
 
